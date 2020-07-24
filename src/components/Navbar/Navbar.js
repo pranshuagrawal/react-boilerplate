@@ -1,33 +1,38 @@
-import React from "react";
-import messages from "./../../assets/Local/messages";
-import { useSelector, useDispatch } from "react-redux";
-import { setCurrentLang } from "../../store/actions/Lang";
-import { Link } from "react-router-dom";
-import { Btn } from "../Controls/Button/Button";
+import React, {useState} from "react";
+// import { useDispatch } from "react-redux";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import LoginPopover from "../LoginPopover";
 
-export default function Navbar() {
-  const lang = useSelector(state => state.lang);
-  const dispatch = useDispatch();
-  const message = messages[lang];
-  const switchLanguage = lang => {
-    dispatch(setCurrentLang(lang === "ar" ? "en" : "ar"));
-  };
+export default function Navbar2() {
+  // const dispatch = useDispatch();
+
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <>
-      <nav className="navbar navbar-dark bg-dark">
-        <a className="navbar-brand">{message.hello}</a>
-        <div className="d-flex align-items-center">
-          {/* This private route won't be accessible if no token in lcoal storage */}
-          <Link to="/" className="text-white mx-3">
-            Private Route
-          </Link>
-          <Btn
-            handleClick={() => switchLanguage(lang)}
-            text={message.langBtn}
-          />
-        </div>
-      </nav>
+     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="#features">Features</Nav.Link>
+          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <Nav>
+          <Nav.Link onClick={() => setShowLogin(true)}>Login</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+
+    <LoginPopover showLogin={showLogin}
+      setShowLogin={setShowLogin} />
     </>
   );
 }

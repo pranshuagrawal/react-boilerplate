@@ -1,4 +1,4 @@
-import { saga1 } from './Feature1Sagas';
+import { saga1 } from './saga';
 import { fork, all } from "redux-saga/effects";
 
 export function* watchSagas() {

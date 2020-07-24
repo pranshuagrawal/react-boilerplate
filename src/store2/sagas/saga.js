@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import API from "../../network/apis/APIExample";
+import API from "../../network/apis/apis";
 import * as ACTIONS from "../actions/Feature1";
 import { dispatchSnackbarError } from "../../utils/Shared";
 import { takeLatest } from "redux-saga/effects";
@@ -14,8 +14,6 @@ export function* feature1Saga() {
     dispatchSnackbarError(err.response.data);
   }
 }
-
-
 
 export function* saga1() {
   yield takeLatest(TYPES.GET_DATA_REQUEST, feature1Saga);
